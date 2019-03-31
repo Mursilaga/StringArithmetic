@@ -41,6 +41,7 @@ std::string plus(std::string a, std::string b)
     
     size_t a_comma_pos = a.find(",");
     size_t b_comma_pos = b.find(",");
+    size_t result_comma_pos_reverse = 0;
     
     if (a_comma_pos != std::string::npos
         && b_comma_pos == std::string::npos)
@@ -65,9 +66,11 @@ std::string plus(std::string a, std::string b)
         else if (diff > 0)
             b_fract.insert(b_fract.length(), diff, '0');
         
-        res = "," + plus(a_fract, b_fract);
-        a = a.substr(0, a_comma_pos);
-        b = b.substr(0, b_comma_pos);
+        result_comma_pos_reverse = a_fract.length();
+        
+        a = a.substr(0, a_comma_pos) + a_fract;
+        b = b.substr(0, b_comma_pos) + b_fract;
+        
     }
     
     int diff = a.length() - b.length();
@@ -99,6 +102,7 @@ std::string plus(std::string a, std::string b)
     if (over)
         res.insert(0, "1");
     
+    res.insert(res.length() - result_comma_pos_reverse,1,',');
     return res;
 }
 
@@ -121,8 +125,8 @@ bool more(std::string a, std::string b)
 
 int main()
 {
-    bool result;
-    result = more("500", "535");
+    std::string result;
+    result = plus("0,5", "0,6");
     
     
     int a;
