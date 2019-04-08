@@ -4,8 +4,8 @@
 
 int main()
 {
-    std::string result;
-    result = StringCalc::add("0,5", "0,6");
+    bool result;
+    result = StringCalc::more("001", "2");
     
     int a;
     std::cin >> a; //pause

@@ -3,8 +3,27 @@
 class StringCalcInteger
 {
 public:
+
+    static void deleteLeadingZeros(std::string& str)
+    {
+        int start_pos = 0;
+        for (auto digit : str)
+        {
+            if (digit == '0')
+                start_pos++;
+            else
+                break;
+        }
+        str = str.substr(start_pos);
+    }
+
+
+    //return true if a > b, otherwise retun false
     static bool more(std::string a, std::string b)
     {
+        deleteLeadingZeros(a);
+        deleteLeadingZeros(b);
+
         if (a.length() != b.length())
             return a.length() > b.length();
 
