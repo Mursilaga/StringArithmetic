@@ -37,6 +37,12 @@ public:
         return false;
     }
 
+    //return true if a > b, otherwise retun false
+    static bool less(std::string a, std::string b)
+    {
+        return more(b, a);
+    }
+
     static std::string add(std::string a, std::string b)
     {
         std::string res;
