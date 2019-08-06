@@ -1,11 +1,9 @@
 #pragma once
 #include "StringCalcInteger.h"
 
-class StringCalc : public StringCalcInteger
-{
+class StringCalc : public StringCalcInteger {
 public:
-    static std::string add(std::string a, std::string b)
-    {
+    static std::string add(std::string a, std::string b) {
         std::string res = "";
         //size_t a_comma_pos = a.find(",");
         //size_t b_comma_pos = b.find(",");
