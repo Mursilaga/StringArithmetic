@@ -12,7 +12,7 @@ int main()
         std::cin >> a;
         std::cout << "input b\n";
         std::cin >> b;
-        StringCalc::less(a, b) ? result = "<" : result = ">";
+        StringCalc::less_or_eq(a, b) ? result = "<=" : result = ">";
         std::cout << a  << " " << result << " " << b << "\n\n";
     }
 

@@ -37,10 +37,26 @@ public:
         return false;
     }
 
-    //return true if a > b, otherwise retun false
+    //return true if a >= b, otherwise retun false
+    static bool more_or_eq(std::string a, std::string b)
+    {
+        deleteLeadingZeros(a);
+        deleteLeadingZeros(b);
+        return more(a, b) || a == b;
+    }
+
+    //return true if a < b, otherwise retun false
     static bool less(std::string a, std::string b)
     {
         return more(b, a);
+    }
+
+    //return true if a <= b, otherwise retun false
+    static bool less_or_eq(std::string a, std::string b)
+    {
+        deleteLeadingZeros(a);
+        deleteLeadingZeros(b);
+        return less(a, b) || a == b;
     }
 
     static std::string add(std::string a, std::string b)
