@@ -112,6 +112,12 @@ public:
         if (less(a, b))
             return subtract(b, a).insert(0, "-");
         
+        int diff = a.length() - b.length();
+        if (diff < 0)
+            a.insert(0, -diff, '0');
+        else if (diff > 0)
+            b.insert(0, diff, '0');
+
         std::string res = "";
         bool over = false;
         for (auto it_a = a.rbegin(), it_b = b.rbegin();
