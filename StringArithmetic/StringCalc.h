@@ -45,12 +45,6 @@ public:
 
         }
 
-        int diff = a.length() - b.length();
-        if (diff < 0)
-            a.insert(0, -diff, '0');
-        else if (diff > 0)
-            b.insert(0, diff, '0');
-
         res.insert(0, __super::add(a, b));
 
         if (result_comma_pos_reverse > 0)
