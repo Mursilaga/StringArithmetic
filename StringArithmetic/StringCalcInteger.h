@@ -63,21 +63,12 @@ public:
         
         std::string res = "";
         bool over = false;
+        int r = 0;
         for (auto it_a = a.rbegin(), it_b = b.rbegin();
-             ;
+             it_a < a.rend();
              ++it_a, ++it_b) {
 
-            if (it_a >= a.rend()) {
-                res.insert(0, b.substr(0, std::distance(it_b, b.rend())));
-                break;
-            }
-
-            if (it_b >= b.rend()) {
-                res.insert(0, a.substr(0, std::distance(it_a, a.rend())));
-                break;
-            }
-
-            int r = (*it_a - '0') + (*it_b - '0');
+            r = (*it_a - '0') + (*it_b - '0');
 
             if (over) {
                 r++;
