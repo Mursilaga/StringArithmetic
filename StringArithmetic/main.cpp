@@ -11,7 +11,7 @@ int main() {
         std::cin >> a;
         std::cout << "input b\n";
         std::cin >> b;
-        std::cout << a << " - " << b << " = " << StringCalc::subtract(a, b) << "\n\n";
+        std::cout << a << " * " << b << " = " << StringCalc::multiply(a, b) << "\n\n";
     }
 
     return 0;

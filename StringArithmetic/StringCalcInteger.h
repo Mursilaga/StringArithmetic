@@ -159,6 +159,20 @@ public:
         return *a.begin() - '0' < 0;
     }
 
+    //return a * b
+    static std::string multiply(std::string a, std::string b) {
+        deleteLeadingZeros(a);
+        deleteLeadingZeros(b);
+        if (a == "0" || b == "0")
+            return "0";
+
+        std::string res = "0";
+        for (auto it_b = b.rbegin(); it_b < b.rend(); ++it_b)
+            for (auto it_a = a.rbegin(); it_a < a.rend(); ++it_a)
+                res = add(res, std::to_string((*it_a - '0') * (*it_b - '0')).append(std::distance(a.rbegin(), it_a), '0').append(std::distance(b.rbegin(), it_b), '0'));
+        return res;
+    }
+
     static std::string divide(std::string a, int b) {
         std::string res = "";
         bool over = false;
