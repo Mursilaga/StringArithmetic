@@ -5,7 +5,7 @@
 int main() {
     std::string a, b, result;
     std::cout << "String Arithmetic\n";
-    std::cout << "subtract integers, positive and/or negative. (no floats)\n";
+    std::cout << "multiply integers, positive and/or negative. (no floats)\n";
     while (1) {
         std::cout << "input a\n";
         std::cin >> a;
