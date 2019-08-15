@@ -88,6 +88,53 @@ public:
         return res;
     }
 
+    //return a + b
+    static std::string add_fast(std::string a, std::string b) {
+        int diff = a.length() - b.length();
+        if (diff < 0)
+            a.insert(0, -diff, '0');
+        else if (diff > 0)
+            b.insert(0, diff, '0');
+
+        unsigned chunk_size = 9;
+        std::string res = "";
+        bool over = false;
+        int r = 0;
+
+        std::string tmp_a = "", tmp_b = "";
+        for (unsigned i = a.length(); i > 0; ) {
+            
+            if (i > chunk_size) {
+                tmp_a = a.substr(i - chunk_size, chunk_size);
+                tmp_b = b.substr(i - chunk_size, chunk_size);
+                i -= chunk_size;
+            }
+            else {
+                tmp_a = a.substr(0, i);
+                tmp_b = b.substr(0, i);
+                i = 0;
+            }
+
+            r = (atoi(tmp_a.c_str()) + atoi(tmp_b.c_str()));
+
+            if (over) {
+                r++;
+                over = false;
+            }
+
+            if (r >= 1000000000) {
+                over = true;
+                r %= 1000000000;
+            }
+            res.insert(0, std::to_string(r).insert(0, 9 - std::to_string(r).length(), '0'));
+        }
+        if (over)
+            res.insert(0, "1");
+
+        deleteLeadingZeros(res);
+        return res;
+    }
+
     //return a - b
     static std::string subtract(std::string a, std::string b) {
         if (a == b)
