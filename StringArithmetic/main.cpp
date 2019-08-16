@@ -4,6 +4,7 @@
 
 int main() {
     std::string a, b, result = "0";
+    a = "9876543210987654321098765432109876543210987654321098765432109876543210987654321098765432109876543210";
     b = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
     clock_t start, end;
     double seconds;
@@ -14,11 +15,12 @@ int main() {
         //std::cout << "input b\n";
         //std::cin >> b;
         start = clock();
-        for (auto i = 0; i < 10000; ++i)
-            result = StringCalc::add_fast(result, b);
+        for (auto i = 0; i < 10; ++i)
+            result = StringCalc::multiply(a, b);
         end = clock();
         seconds = (double)(end - start) / CLOCKS_PER_SEC;
         std::cout << a << " * " << b << " = " << result << "\ntime: " << seconds <<" sec \n\n";
+        std::cin >> a;
     }
 
     return 0;
