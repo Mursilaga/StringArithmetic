@@ -15,8 +15,8 @@ int main() {
         //std::cout << "input b\n";
         //std::cin >> b;
         start = clock();
-        for (auto i = 0; i < 10; ++i)
-            result = StringCalc::multiply(a, b);
+        for (auto i = 0; i < 100000; ++i)
+            result = StringCalc::add(result, b);
         end = clock();
         seconds = (double)(end - start) / CLOCKS_PER_SEC;
         std::cout << a << " * " << b << " = " << result << "\ntime: " << seconds <<" sec \n\n";

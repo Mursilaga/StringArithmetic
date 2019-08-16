@@ -89,7 +89,7 @@ public:
     }
 
     //return a + b
-    static std::string add(std::string a, std::string b) {
+    static std::string add_chunk_by_chunk(std::string a, std::string b) {
         int diff = a.length() - b.length();
         if (diff < 0)
             a.insert(0, -diff, '0');
@@ -126,7 +126,7 @@ public:
                 over = true;
                 r %= 1000000000;
             }
-            res.insert(0, std::to_string(r).insert(0, 9 - std::to_string(r).length(), '0'));
+            res.insert(0, std::to_string(r).insert(0, chunk_size - std::to_string(r).length(), '0'));
         }
         if (over)
             res.insert(0, "1");
@@ -136,14 +136,14 @@ public:
     }
 
     //return a + b
-    static std::string add_fast(std::string a, std::string b) {
+    static std::string add(std::string a, std::string b) {
         int diff = a.length() - b.length();
         if (diff < 0)
             a.insert(0, -diff, '0');
         else if (diff > 0)
             b.insert(0, diff, '0');
 
-        unsigned chunk_size = 19;
+        unsigned chunk_size = 18;
         std::string res = "";
         bool over = false;
         uint64_t r = 0;
@@ -169,9 +169,9 @@ public:
                 over = false;
             }
 
-            if (r >= 10000000000000000000) {
+            if (r >= 1000000000000000000) {
                 over = true;
-                r %= 10000000000000000000;
+                r %= 1000000000000000000;
             }
             res.insert(0, std::to_string(r).insert(0, chunk_size - std::to_string(r).length(), '0'));
         }
@@ -265,7 +265,7 @@ public:
         if (a == "0" || b == "0")
             return "0";
 
-        unsigned chunk_size = 4;
+        unsigned chunk_size = 9;
         std::string res = "0", tmp_a, tmp_b, tmp_res;
 
         for (auto it_a = a.length(); it_a > 0;) {
@@ -280,7 +280,7 @@ public:
                 else
                     tmp_b = b.substr(0, it_b);
 
-                tmp_res = std::to_string((atoi(tmp_a.c_str()) * atoi(tmp_b.c_str())));
+                tmp_res = std::to_string((stoll(tmp_a) * stoll(tmp_b)));
                 res = add(res, tmp_res.append((a.length() - it_a) + (b.length() - it_b), '0'));
 
                 if (it_b > chunk_size)
