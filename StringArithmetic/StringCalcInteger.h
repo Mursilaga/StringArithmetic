@@ -35,7 +35,7 @@ public:
     }
 
     //return true if a >= b, otherwise return false
-    static bool more_or_eq(std::string a, std::string b) {
+    static bool moreOrEq(std::string a, std::string b) {
         deleteLeadingZeros(a);
         deleteLeadingZeros(b);
         return more(a, b) || a == b;
@@ -47,14 +47,14 @@ public:
     }
 
     //return true if a <= b, otherwise return false
-    static bool less_or_eq(std::string a, std::string b) {
+    static bool lessOrEq(std::string a, std::string b) {
         deleteLeadingZeros(a);
         deleteLeadingZeros(b);
         return less(a, b) || a == b;
     }
 
     //return a + b
-    static std::string add_simple(std::string a, std::string b) {
+    static std::string addSimple(std::string a, std::string b) {
         int diff = a.length() - b.length();
         if (diff < 0)
             a.insert(0, -diff, '0');
@@ -89,7 +89,7 @@ public:
     }
 
     //return a + b
-    static std::string add_chunk_by_chunk(std::string a, std::string b) {
+    static std::string addChunkByChunk(std::string a, std::string b) {
         int diff = a.length() - b.length();
         if (diff < 0)
             a.insert(0, -diff, '0');
@@ -245,7 +245,7 @@ public:
     }
 
     //return a * b
-    static std::string multiply_simple(std::string a, std::string b) {
+    static std::string multiplySimple(std::string a, std::string b) {
         deleteLeadingZeros(a);
         deleteLeadingZeros(b);
         if (a == "0" || b == "0")
@@ -254,7 +254,7 @@ public:
         std::string res = "0";
         for (auto it_b = b.rbegin(); it_b < b.rend(); ++it_b)
             for (auto it_a = a.rbegin(); it_a < a.rend(); ++it_a)
-                res = add_simple(res, std::to_string((*it_a - '0') * (*it_b - '0')).append(std::distance(a.rbegin(), it_a), '0').append(std::distance(b.rbegin(), it_b), '0'));
+                res = addSimple(res, std::to_string((*it_a - '0') * (*it_b - '0')).append(std::distance(a.rbegin(), it_a), '0').append(std::distance(b.rbegin(), it_b), '0'));
         return res;
     }
 
