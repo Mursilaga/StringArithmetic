@@ -92,5 +92,15 @@ private:
         return res;
     }
 
+public:
+    static void deleteTrailingZeros(std::string& str) {
+        unsigned pos = str.length() - 1;
+        while (pos >= 0 && str[pos] == '0')
+            pos--;
+
+        str = str.erase(pos);
+        if (str == "")
+            str = "0";
+    }
 };
 
