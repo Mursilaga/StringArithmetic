@@ -6,6 +6,7 @@ public:
     static std::string add(std::string a, std::string b) {
         std::string res = "";
         char decimal_separator = ',';
+
         size_t a_comma_pos = a.find(",");
         size_t b_comma_pos = b.find(",");
         if (a_comma_pos == std::string::npos) {
@@ -42,15 +43,54 @@ public:
 
             a = a.substr(0, a_comma_pos) + a_fract;
             b = b.substr(0, b_comma_pos) + b_fract;
-
         }
 
-        res.insert(0, __super::add(a, b));
+        return processDecimal(&__super::add, a, b, result_comma_pos_reverse, decimal_separator);
+    }
 
-        if (result_comma_pos_reverse > 0)
-            res.insert(res.length() - result_comma_pos_reverse, 1, decimal_separator);
+    static std::string multiply(std::string a, std::string b) {
+        std::string res = "";
+        char decimal_separator = ',';
+
+        size_t a_comma_pos = a.find(",");
+        size_t b_comma_pos = b.find(",");
+        if (a_comma_pos == std::string::npos) {
+            a_comma_pos = a.find(".");
+            if (a_comma_pos == std::string::npos)
+                a_comma_pos = a.length();
+            decimal_separator = '.';
+        }
+        if (b_comma_pos == std::string::npos) {
+            b_comma_pos = b.find(".");
+            if (b_comma_pos == std::string::npos)
+                b_comma_pos = b.length();
+            decimal_separator = '.';
+        }
+        a.erase(a_comma_pos, 1);
+        b.erase(b_comma_pos, 1);
+        size_t result_comma_pos_reverse = (a.length() - a_comma_pos) + (b.length() - b_comma_pos);
+
+        return processDecimal(&__super::multiply, a, b, result_comma_pos_reverse, decimal_separator);
+    }
+
+
+private:
+
+    static std::string processDecimal(std::string(*func)(std::string, std::string),
+                                       std::string a, std::string b,
+                                       size_t separator_pos_reverse, char decimal_separator) {
+        std::string res = "";
+        res.insert(0, func(a, b));
+        
+        if (res == "0")
+            return res;
+        if (separator_pos_reverse >= res.length())
+            res.insert(0, (separator_pos_reverse + 1) - res.length(), '0');
+        if (separator_pos_reverse > 0)
+            res.insert(res.length() - separator_pos_reverse, 1, decimal_separator);
 
         return res;
     }
+
 };
 
