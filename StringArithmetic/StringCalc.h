@@ -70,7 +70,12 @@ public:
         b.erase(b_comma_pos, 1);
         size_t result_comma_pos_reverse = (a.length() - a_comma_pos) + (b.length() - b_comma_pos);
 
-        return processDecimal(&__super::multiply, a, b, result_comma_pos_reverse, decimal_separator);
+        res = processDecimal(&__super::multiply, a, b, result_comma_pos_reverse, decimal_separator);
+
+        if(result_comma_pos_reverse > 0)
+            deleteTrailingZeros(res, decimal_separator);
+
+        return res;
     }
 
 
@@ -92,13 +97,12 @@ private:
         return res;
     }
 
-public:
-    static void deleteTrailingZeros(std::string& str) {
+    static void deleteTrailingZeros(std::string& str, char separator = '.') {
         unsigned pos = str.length() - 1;
-        while (pos >= 0 && str[pos] == '0')
+        while (pos >= 0 && (str[pos] == '0' || str[pos] == separator))
             pos--;
 
-        str = str.erase(pos);
+        str = str.erase(pos+1);
         if (str == "")
             str = "0";
     }
