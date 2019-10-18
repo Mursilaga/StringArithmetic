@@ -1,21 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
+
 class StringCalcInteger {
 public:
-
-    static void deleteLeadingZeros(std::string& str) {
-        int start_pos = 0;
-        for (auto digit : str) {
-            if (digit == '0')
-                start_pos++;
-            else
-                break;
-        }
-        str = str.substr(start_pos);
-        if (str == "")
-            str = "0";
-    }
-
 
     //return true if a > b, otherwise return false
     static bool more(std::string a, std::string b) {
@@ -297,34 +285,41 @@ public:
     }
 
 
-    static std::string divide(std::string a, int b) {
-        std::string res = "";
-        bool over = false;
-        int digit = 0;
+    static std::vector<std::string> divide(std::string a, std::string b) {
+        std::string quotient = "", reminder = "", tmp_a = "";
+        uint8_t tmp_res = 1;
+        if (b == "0")
+            return std::vector<std::string> {"err", "err"};
+        if (a == "0")
+            return std::vector<std::string> {"0", "0"};
 
-        for (char symbol : a) {
-            digit = symbol - '0';
-            if (over) {
-                digit += 10;
-                over = false;
-            }
-            if (digit < b) {
-                res += "0";
-                if (digit == 1)
-                    over = true;
-            }
-            else {
-                res += std::to_string(digit / b);
-                if (digit % b)
-                    over = true;
-            }
+        for (auto it_a = a.begin(); it_a < a.end(); it_a++) {
+            tmp_a += *it_a;
+            if (less(tmp_a, b))
+                continue;
+            while (less(tmp_a, multiply(b,std::to_string(tmp_res))))
+                tmp_res++;
+
         }
 
-        if (res == "")
-            res = "0";
-        else if (res.length() > 1 && res[0] == '0')
-            res = res.substr(1);
-
-        return res;
+        deleteLeadingZeros(quotient);
+        deleteLeadingZeros(reminder);
+        return std::vector<std::string> {quotient, reminder};
     }
+
+private:
+
+    static void deleteLeadingZeros(std::string& str) {
+        int start_pos = 0;
+        for (auto digit : str) {
+            if (digit == '0')
+                start_pos++;
+            else
+                break;
+        }
+        str = str.substr(start_pos);
+        if (str == "")
+            str = "0";
+    }
+
 };

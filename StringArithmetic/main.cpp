@@ -3,7 +3,8 @@
 #include <time.h> 
 
 int main() {
-    std::string a, b, result = "0";
+    std::string a, b;
+    std::vector<std::string> result = { "0", "0" };
     clock_t start, end;
     double seconds;
 
@@ -15,10 +16,10 @@ int main() {
         std::cout << "input b\n";
         std::cin >> b;
         start = clock();
-        result = StringCalc::multiply(a, b);
+        result = StringCalc::divide(a, b);
         end = clock();
         seconds = (double)(end - start) / CLOCKS_PER_SEC;
-        std::cout << a << " * " << b << " = " << result << "\ntime: " << seconds << " sec \n\n";
+        std::cout << a << " / " << b << " = " << result[0] << "\nmod: " << result[1] << "\ntime: " << seconds << " sec \n\n";
     }
 
     return 0;
