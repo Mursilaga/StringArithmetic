@@ -286,25 +286,27 @@ public:
 
 
     static std::vector<std::string> divide(std::string a, std::string b) {
-        std::string quotient = "", reminder = "", tmp_a = "";
-        uint8_t tmp_res = 1;
+        std::string quotient = "", tmp_a = "";
+        uint8_t tmp_res;
         if (b == "0")
             return std::vector<std::string> {"err", "err"};
-        if (a == "0")
-            return std::vector<std::string> {"0", "0"};
 
         for (auto it_a = a.begin(); it_a < a.end(); it_a++) {
             tmp_a += *it_a;
-            if (less(tmp_a, b))
+            if (less(tmp_a, b)) {
+                quotient.append("0");
                 continue;
-            while (less(tmp_a, multiply(b,std::to_string(tmp_res))))
+            }
+            tmp_res = 1;
+            while (moreOrEq(tmp_a, multiply(b,std::to_string(tmp_res+1))))
                 tmp_res++;
-
+            quotient.append(std::to_string(tmp_res));
+            tmp_a = subtract(tmp_a, multiply(b,std::to_string(tmp_res)));
         }
 
         deleteLeadingZeros(quotient);
-        deleteLeadingZeros(reminder);
-        return std::vector<std::string> {quotient, reminder};
+        deleteLeadingZeros(tmp_a);
+        return std::vector<std::string> {quotient, tmp_a};
     }
 
 private:

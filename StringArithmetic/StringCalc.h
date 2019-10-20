@@ -45,7 +45,7 @@ public:
             b = b.substr(0, b_comma_pos) + b_fract;
         }
 
-        return processDecimal(&__super::add, a, b, result_comma_pos_reverse, decimal_separator);
+        return processDecimal(&StringCalcInteger::add, a, b, result_comma_pos_reverse, decimal_separator);
     }
 
     static std::string multiply(std::string a, std::string b) {
@@ -70,7 +70,7 @@ public:
         b.erase(b_comma_pos, 1);
         size_t result_comma_pos_reverse = (a.length() - a_comma_pos) + (b.length() - b_comma_pos);
 
-        res = processDecimal(&__super::multiply, a, b, result_comma_pos_reverse, decimal_separator);
+        res = processDecimal(&StringCalcInteger::multiply, a, b, result_comma_pos_reverse, decimal_separator);
 
         if(result_comma_pos_reverse > 0)
             deleteTrailingZeros(res, decimal_separator);
