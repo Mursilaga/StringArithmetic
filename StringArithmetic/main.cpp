@@ -3,8 +3,7 @@
 #include <time.h> 
 
 int main() {
-    std::string a, b;
-    std::vector<std::string> result = { "0", "0" };
+    std::string a, b, result;
     clock_t start, end;
     double seconds;
 
@@ -13,13 +12,12 @@ int main() {
     while (1) {
         std::cout << "input a\n";
         std::cin >> a;
-        std::cout << "input b\n";
-        std::cin >> b;
+        //a = "190206641047684975211982941460081069318934411454082336992200675048562064076120070994322604415891801";
         start = clock();
-        result = StringCalc::divide(a, b);
+        result = StringCalc::sqrt(a);
         end = clock();
         seconds = (double)(end - start) / CLOCKS_PER_SEC;
-        std::cout << a << " / " << b << " = " << result[0] << "\nmod: " << result[1] << "\ntime: " << seconds << " sec \n\n";
+        std::cout << "root(" << a << ")" << " = " << result << "\ntime: " << seconds << " sec \n\n";
     }
 
     return 0;

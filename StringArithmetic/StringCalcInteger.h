@@ -284,12 +284,37 @@ public:
         return res;
     }
 
-
-    static std::vector<std::string> divide(std::string a, std::string b) {
+    //return (int) a / b quotient and reminder
+    static std::vector<std::string> divide_with_rem(std::string a, std::string b) {
         std::string quotient = "", tmp_a = "";
         uint8_t tmp_res;
         if (b == "0")
             return std::vector<std::string> {"err", "err"};
+
+        for (auto it_a = a.begin(); it_a < a.end(); it_a++) {
+            tmp_a += *it_a;
+            if (less(tmp_a, b)) {
+                quotient.append("0");
+                continue;
+            }
+            tmp_res = 1;
+            while (moreOrEq(tmp_a, multiply(b, std::to_string(tmp_res + 1))))
+                tmp_res++;
+            quotient.append(std::to_string(tmp_res));
+            tmp_a = subtract(tmp_a, multiply(b, std::to_string(tmp_res)));
+        }
+
+        deleteLeadingZeros(quotient);
+        deleteLeadingZeros(tmp_a);
+        return std::vector<std::string> {quotient, tmp_a};
+    }
+
+    //return (int) a / b
+    static std::string divide(std::string a, std::string b) {
+        std::string quotient = "", tmp_a = "";
+        uint8_t tmp_res;
+        if (b == "0")
+            return "err";
 
         for (auto it_a = a.begin(); it_a < a.end(); it_a++) {
             tmp_a += *it_a;
@@ -306,7 +331,19 @@ public:
 
         deleteLeadingZeros(quotient);
         deleteLeadingZeros(tmp_a);
-        return std::vector<std::string> {quotient, tmp_a};
+        return quotient;
+    }
+
+    static std::string sqrt(std::string a) {
+        std::string x = a, y;
+        if (a == "0") return "0";
+        while (true) {
+            y = divide(add(x,divide(a, x)),"2");
+            if (moreOrEq(y,x))
+                return x;
+            else
+                x = y;
+        }
     }
 
 private:
