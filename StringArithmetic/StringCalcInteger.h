@@ -335,7 +335,7 @@ public:
     }
 
     static std::string sqrt(std::string a) {
-        std::string x = a, y;
+        std::string x = a.substr(0, a.length()/2 + 1), y;
         if (a == "0") return "0";
         while (true) {
             y = divide(add(x,divide(a, x)),"2");
